@@ -5356,6 +5356,7 @@ JS
 	/**
 	 * @param array $aChanges
 	 * @param bool $bIsNew
+	 * @param string|null $sStimulusBeingApplied
 	 *
 	 * @return void
 	 * @throws \ArchivedObjectException
@@ -5367,6 +5368,21 @@ JS
 		$this->NotifyAttachedObjectsOnLinkClassModification();
 		$this->RemoveObjectAwaitingEventDbLinksChanged(get_class($this), $this->GetKey());
 		$this->FireEvent(EVENT_DB_AFTER_WRITE, ['is_new' => $bIsNew, 'changes' => $aChanges, 'stimulus_applied' => $sStimulusBeingApplied, 'cmdb_change' => self::GetCurrentChange()]);
+	}
+
+	//////////////
+	/// READ
+	///
+
+	/**
+	 * @return void
+	 * @throws \CoreException
+	 * @since 3.3.0
+	 */
+	final public function FireEventReadDetails(): void
+	{
+
+		$this->FireEvent(EVENT_DB_TRACEABILITY);
 	}
 
 	//////////////
